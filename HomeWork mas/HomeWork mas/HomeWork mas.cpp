@@ -27,23 +27,35 @@ int main()
 		flag = false;
 		for (int n = 0; n < 9; n++)
 		{
-
-			if (Mas[n] > Mas[n + 1])
+			if (n > 0)
 			{
-				int elem = Mas[n];
-				Mas[n] = Mas[n + 1];
-				Mas[n + 1] = elem;
-				flag = true;
+				if (Mas[n] > Mas[n + 1])
+				{
+					int elem = Mas[n];
+					Mas[n] = Mas[n + 1];
+					Mas[n + 1] = elem;
+					flag = true;
+				}
 
+				else if (Mas[n] < Mas[n - 1])
+				{
+					int elem = Mas[n];
+					Mas[n] = Mas[n - 1];
+					Mas[n - 1] = elem;
+					flag = true;
+				}
 			}
-			else if (Mas[n] < Mas[n - 1])
+			else
 			{
-				int elem = Mas[n];
-				Mas[n] = Mas[n - 1];
-				Mas[n - 1] = elem;
-				flag = true;
-			}
+				if (Mas[n] > Mas[n + 1])
+				{
+					int elem = Mas[n];
+					Mas[n] = Mas[n + 1];
+					Mas[n + 1] = elem;
+					flag = true;
 
+				}
+			}
 		}
 	}
 
@@ -53,9 +65,6 @@ int main()
         cout << Mas[m] << " ";
     }
 
-    
-
-    
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
