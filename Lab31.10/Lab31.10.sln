@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab31.10", "Lab31.10\Lab31.10.vcxproj", "{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}"
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "2list", "..\2list\Debug\2list.exe", "{BEB3D8A9-DD2B-49C8-95EC-25E39D3DC328}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = C:\Users\79039\source\repos\2list\Debug\2list.exe
+		RemoteMachine = LAPTOP-2BO5A70G
+		StartingDirectory = C:\Users\79039\source\repos\2list\Debug
+		Environment = По умолчанию
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		UseLegacyDebugEngines = No
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Debug|x64.ActiveCfg = Debug|x64
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Debug|x64.Build.0 = Debug|x64
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Debug|x86.ActiveCfg = Debug|Win32
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Debug|x86.Build.0 = Debug|Win32
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Release|x64.ActiveCfg = Release|x64
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Release|x64.Build.0 = Release|x64
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Release|x86.ActiveCfg = Release|Win32
+		{55FAE097-0CAB-4A04-ABCA-13B959C1E7F1}.Release|x86.Build.0 = Release|Win32
+		{BEB3D8A9-DD2B-49C8-95EC-25E39D3DC328}.Debug|x64.ActiveCfg = Release|x86
+		{BEB3D8A9-DD2B-49C8-95EC-25E39D3DC328}.Debug|x86.ActiveCfg = Release|x86
+		{BEB3D8A9-DD2B-49C8-95EC-25E39D3DC328}.Release|x64.ActiveCfg = Release|x86
+		{BEB3D8A9-DD2B-49C8-95EC-25E39D3DC328}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {490FD15D-3586-466C-A6EC-3E6986DB9617}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,5 @@
+﻿  Lab31.10.cpp
+C:\Users\79039\source\repos\Lab31.10\Lab31.10\Lab31.10.cpp(101,18): warning C4101: temp: неиспользованная локальная переменная
+C:\Users\79039\source\repos\Lab31.10\Lab31.10\Lab31.10.cpp(241,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\79039\source\repos\Lab31.10\Lab31.10\Lab31.10.cpp(246,18): warning C4101: del_item: неиспользованная локальная переменная
+  Lab31.10.vcxproj -> C:\Users\79039\source\repos\Lab31.10\Debug\Lab31.10.exe
