@@ -49,10 +49,24 @@ def index(request):
 def table_view(request):
     students = Student.objects.all()
     stats = Stats.objects.all().order_by('lab')
-    print(stats)
     context = {
         'students': students,
         'stats': stats,
     }
 
     return render(request, template_name="table.html", context=context)
+
+
+def update_changes(request):
+    if(request.GET):
+        stats = Stats.objects.get(pk=request.GET['stats_id'])
+        if(request.GET['status']):
+            stats.status = True
+        else:
+            stats.status = False
+        stats.save()
+        user = stats.student
+        labs = user.labs.all()
+        print(labs)
+        return HttpResponse('True')
+    return HttpResponse('False') 

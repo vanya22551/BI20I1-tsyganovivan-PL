@@ -50,7 +50,7 @@
     {% for stat in stats%}
         {% if stat.student.id == student.id %}
 
-        <td><a u href="#" data-catid="{{stat.status }}">{{stat.status}}</a></td>
+        <td><a class="stats" data-statid="{{stat.id}}">{{stat.status}}</a></td>
 
         {% endif %}
     {% endfor %}
@@ -63,3 +63,20 @@
 
 </table>
 
+<script>
+let items = document.querySelectorAll('.stats');
+for (const item of items) {
+    item.addEventListener('click', function(){
+        let data_statid = this.getAttribute('data-statid');
+        let this_click = this;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                this_click.innerHTML= this.responseText;
+            }
+        };
+        xhttp.open("GET", "api/v1/update_stats_status?stats_id="+data_statid+"&status=1", true);
+        xhttp.send();
+            });
+}
+</script>
