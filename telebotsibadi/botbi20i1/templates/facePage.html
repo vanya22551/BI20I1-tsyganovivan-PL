@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Бот группы БИ-20И1</title>
+</head>
+ <style type="text/css">
+   TABLE {
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    width: 20%; /* Ширина таблицы */
+   }
+   TH {
+    background: #fc0; /* Цвет фона ячейки */
+    text-align: left; /* Выравнивание по левому краю */
+   }
+   TD {
+    background: #fff; /* Цвет фона ячеек */
+    text-align: center; /* Выравнивание по центру */
+   }
+   TH, TD {
+    border: 1px solid black; /* Параметры рамки */
+    padding: 4px; /* Поля вокруг текста */
+   }
+  </style>
+<body>
+
+
+    <h1 align="center"> Сайт для Бота группы БИ-20И1</h1>
+    <p align="center"><input type="button" onclick="location.href='{% url 'table' %}';" value=" Таблица "></p>
+    <table>
+    <tr>
+        <th><b>Cтуденты группы:</b></th>
+        <th><b>Рейтинг</b></th>
+    </tr>
+
+    {% for student in students %}
+    <tr>
+        <td>{{student}}</td>
+        <td>{{student.rating}}</td>
+
+    </tr>
+    {% endfor %}
+
+    </table>
+</body>
+</html>

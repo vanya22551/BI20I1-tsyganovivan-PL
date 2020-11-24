@@ -1,0 +1,65 @@
+ <style type="text/css">
+   TABLE {
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    width: 100%; /* Ширина таблицы */
+   }
+   TH {
+    background: #fc0; /* Цвет фона ячейки */
+    text-align: left; /* Выравнивание по левому краю */
+   }
+   TD {
+    background: #fff; /* Цвет фона ячеек */
+    text-align: center; /* Выравнивание по центру */
+   }
+   TH, TD {
+    border: 1px solid black; /* Параметры рамки */
+    padding: 4px; /* Поля вокруг текста */
+   }
+   button.knopka {
+	color: #fff;
+	background: #FFA500;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid #FF8247;
+	}
+	button.knopka:hover {
+	background: #FF6347;
+	}
+  </style>
+<head>
+    <meta charset="UTF-8">
+    <title>БИ-20И1</title>
+</head>
+<table>
+<tr><th>Студент</th>
+    {% for stat in stats%}
+    {% with student=students|first %}
+        {% if stat.student.id == student.id %}
+        <th>{{stat.lab.name}}</th>
+        {% endif %}
+    {% endwith %}
+    {% endfor %}
+    <th>Рейтинг за КТ1</th>
+    <th>Рейтинг за КТ2</th>
+    <th>Рейтинг за КТ3</th>
+    <th>Общий рейтинг</th>
+</tr>
+{% for student in students %}
+    <tr>
+    <td>{{student.name}}</td>
+    {% for stat in stats%}
+        {% if stat.student.id == student.id %}
+
+        <td><a u href="#" data-catid="{{stat.status }}">{{stat.status}}</a></td>
+
+        {% endif %}
+    {% endfor %}
+        <td>{{student.rating_1KT}}</td>
+        <td>{{student.rating_2KT}}</td>
+        <td>{{student.rating_3KT}}</td>
+        <td>{{student.rating}}</td>
+    </tr>
+{% endfor %}
+
+</table>
+
