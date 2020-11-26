@@ -50,14 +50,17 @@
     {% for stat in stats%}
         {% if stat.student.id == student.id %}
 
-        <td><a class="stats" data-statid="{{stat.id}}">{{stat.status}}</a></td>
+
+        <td><input class="stats" type="radio" id="{{stat.id}}"></td>
 
         {% endif %}
     {% endfor %}
+
         <td>{{student.rating_1KT}}</td>
         <td>{{student.rating_2KT}}</td>
         <td>{{student.rating_3KT}}</td>
-        <td>{{student.rating}}</td>
+        <td><data class="Rating" value="{{student.id}}">{{student.rating}}</data></td>
+
     </tr>
 {% endfor %}
 
@@ -65,9 +68,10 @@
 
 <script>
 let items = document.querySelectorAll('.stats');
+
 for (const item of items) {
     item.addEventListener('click', function(){
-        let data_statid = this.getAttribute('data-statid');
+        let id = this.getAttribute('id');
         let this_click = this;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -75,7 +79,7 @@ for (const item of items) {
                 this_click.innerHTML= this.responseText;
             }
         };
-        xhttp.open("GET", "api/v1/update_stats_status?stats_id="+data_statid+"&status=1", true);
+        xhttp.open("GET", "api/v1/update_stats_status?stats_id="+id+"&status=1", true);
         xhttp.send();
             });
 }

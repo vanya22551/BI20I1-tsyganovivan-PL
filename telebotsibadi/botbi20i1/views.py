@@ -60,13 +60,30 @@ def table_view(request):
 def update_changes(request):
     if(request.GET):
         stats = Stats.objects.get(pk=request.GET['stats_id'])
-        if(request.GET['status']):
-            stats.status = True
-        else:
-            stats.status = False
-        stats.save()
         user = stats.student
         labs = user.labs.all()
-        print(labs)
+        sum_labs = len(labs)
+        lab_point = 100 / sum_labs
+        print(user.rating)
+        print(Laboratory.name)
+        if request.GET['status']:
+            if stats.status is False:
+                user.rating += lab_point
+            else:
+                user.rating += 0
+
+            stats.status = True
+
+
+        else:
+            stats.status = False
+        user.save()
+        stats.save()
+
+
+
         return HttpResponse('True')
-    return HttpResponse('False') 
+    return HttpResponse('False')
+
+
+
