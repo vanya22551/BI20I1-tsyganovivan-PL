@@ -1,35 +1,5 @@
- <style type="text/css">
-   TABLE {
-    border-collapse: collapse; /* Убираем двойные линии между ячейками */
-    width: 100%; /* Ширина таблицы */
-   }
-   TH {
-    background: #fc0; /* Цвет фона ячейки */
-    text-align: left; /* Выравнивание по левому краю */
-   }
-   TD {
-    background: #fff; /* Цвет фона ячеек */
-    text-align: center; /* Выравнивание по центру */
-   }
-   TH, TD {
-    border: 1px solid black; /* Параметры рамки */
-    padding: 4px; /* Поля вокруг текста */
-   }
-   button.knopka {
-	color: #fff;
-	background: #FFA500;
-	padding: 5px;
-	border-radius: 5px;
-	border: 2px solid #FF8247;
-	}
-	button.knopka:hover {
-	background: #FF6347;
-	}
-  </style>
-<head>
-    <meta charset="UTF-8">
-    <title>БИ-20И1</title>
-</head>
+{% extends 'base.html'%}
+{% block content%}
 <table>
 <tr><th>Студент</th>
     {% for stat in stats%}
@@ -51,7 +21,7 @@
         {% if stat.student.id == student.id %}
 
 
-        <td><input class="stats" type="radio" id="{{stat.id}}"></td>
+        <td><input class="stats" type="checkbox" id="{{stat.id}}" {% if stat.status == True %}checked{% endif %}></td>
 
         {% endif %}
     {% endfor %}
@@ -84,3 +54,4 @@ for (const item of items) {
             });
 }
 </script>
+{% endblock%}

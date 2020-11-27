@@ -1,5 +1,6 @@
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -8,4 +9,4 @@ urlpatterns = [
     path('table', views.table_view, name='table'),
     path('api/v1/update_stats_status', views.update_changes, name='update_api'),
     
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
