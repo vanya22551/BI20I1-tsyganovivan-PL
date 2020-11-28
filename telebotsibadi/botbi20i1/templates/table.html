@@ -21,7 +21,7 @@
         {% if stat.student.id == student.id %}
 
 
-        <td><input class="stats" type="checkbox" id="{{stat.id}}" {% if stat.status == True %}checked{% endif %}></td>
+        <td><input class="stats {{stat.lab.kt}}" type="checkbox" id="{{stat.id}}" {% if stat.status == True %}checked{% endif %}></td>
 
         {% endif %}
     {% endfor %}
@@ -29,7 +29,7 @@
         <td>{{student.rating_1KT}}</td>
         <td>{{student.rating_2KT}}</td>
         <td>{{student.rating_3KT}}</td>
-        <td><data class="Rating" value="{{student.id}}">{{student.rating}}</data></td>
+        <td><data class="Rating " rt="{{student.id}}">{{student.rating}}</data></td>
 
     </tr>
 {% endfor %}
@@ -47,6 +47,8 @@ for (const item of items) {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 this_click.innerHTML= this.responseText;
+                    document.querySelector('.rating rt=[17]').innerHTML = 100;
+                console.log(JSON.parse(this.responseText).rating);
             }
         };
         xhttp.open("GET", "api/v1/update_stats_status?stats_id="+id+"&status=1", true);

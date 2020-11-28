@@ -7,8 +7,9 @@ from .models import Laboratory, Student, Hint, Stats
 
 def facePage(request):
     students = Student.objects.all()
+
     stats = Stats.objects.all().order_by('lab')
-    print(stats)
+
     context = {
         'students': students,
         'stats': stats,
@@ -64,12 +65,35 @@ def update_changes(request):
         labs_kt1 = user.labs.filter(kt=1)
         labs_kt2 = user.labs.filter(kt=2)
         labs_kt3 = user.labs.filter(kt=3)
-        sum_labs = len(labs)
-        lab_point = 100 / sum_labs
-        user.rating = lab_point
+
+        KT = stats.lab.kt
+
+        sum_labs_1kt = len(labs_kt1)
+        sum_labs_2kt = len(labs_kt2)
+        sum_labs_3kt = len(labs_kt3)
+
+        print(labs_kt1)
+        print(stats.lab.kt)
+        try:
+            lab_point_kt1 = 100 / sum_labs_1kt
+        except ZeroDivisionError:
+            lab_point_kt1 = 0
+        try:
+            lab_point_kt2 = 100 / sum_labs_2kt
+        except ZeroDivisionError:
+            lab_point_kt2 = 0
+        try:
+            lab_point_kt3 = 100 / sum_labs_3kt
+        except ZeroDivisionError:
+            lab_point_kt3 = 0
         if request.GET['status']:
-            if stats.status is False:
-                user.rating += lab_point
+            if not stats.status:
+                if KT == 1:
+                    user.rating_1KT = lab_point_kt1
+                elif KT == 2:
+                    user.rating_2KT = lab_point_kt2
+                else:
+                    user.rating_3KT = lab_point_kt3
             else:
                 user.rating += 0
 

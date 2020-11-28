@@ -21,6 +21,7 @@ class Student(models.Model):
 
     group = models.CharField(max_length=20, default="")
     name = models.CharField(max_length=60, default="")
+    git_hub = models.CharField(max_length=100, default="")
     rating_1KT = models.PositiveIntegerField(default=0, validators=[
         MaxValueValidator(100)])
     rating_2KT = models.PositiveIntegerField(default=0, validators=[

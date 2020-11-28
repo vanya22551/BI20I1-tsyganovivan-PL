@@ -5,28 +5,44 @@
     <title>Бот группы БИ-20И1</title>
 </head>
  <style type="text/css">
+    body {
+    background: url(http://www.wallpapers4u.org/wp-content/uploads/background_light_bright_point_47456_1920x1080.jpg) repeat-y;
+   }
+
    TABLE {
     border-collapse: collapse; /* Убираем двойные линии между ячейками */
     width: 20%; /* Ширина таблицы */
    }
    TH {
-    background: #fc0; /* Цвет фона ячейки */
+     /* Цвет фона ячейки */
     text-align: left; /* Выравнивание по левому краю */
    }
    TD {
-    background: #fff; /* Цвет фона ячеек */
-    text-align: center; /* Выравнивание по центру */
+    background: ; /* Цвет фона ячеек */
+    /* Выравнивание по центру */
    }
    TH, TD {
     border: 1px solid black; /* Параметры рамки */
     padding: 4px; /* Поля вокруг текста */
    }
+   input{
+    background: none;
+   }
+    a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
   </style>
 <body>
 
 
+
     <h1 align="center"> Сайт для Бота группы БИ-20И1</h1>
-    <p align="center"><input type="button" onclick="location.href='{% url 'table' %}';" value=" Таблица "></p>
+    <p style="position:fixed; top:16px;  left:1200px">
+        <input type="button" onclick="location.href='{% url 'table' %}';" value=" Таблица ">
+    </p>
+    <p style="position:fixed; top:16px;  left:1300px">
+        <input type="button" onclick="location.href='http://127.0.0.1:8000/admin/';" value=" Админка ">
+    </p>
     <table>
     <tr>
         <th><b>Cтуденты группы:</b></th>
@@ -35,8 +51,8 @@
 
     {% for student in students %}
     <tr>
-        <td>{{student}}</td>
-        <td>{{student.rating}}</td>
+        <td align="left"><a href="{{student.git_hub}}" style="font-family:times;color:black;font-size:15px">{{student.name}}</a></td>
+        <td align="center" style="font-family:times;color:black;font-size:15px">{{student.rating}}</td>
 
     </tr>
     {% endfor %}
