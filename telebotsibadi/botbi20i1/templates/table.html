@@ -47,7 +47,7 @@ for (const item of items) {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 this_click.innerHTML= this.responseText;
-                    document.querySelector('.rating rt=[17]').innerHTML = 100;
+                    document.querySelector('.rating rt=[16]').innerHTML = 100;
                 console.log(JSON.parse(this.responseText).rating);
             }
         };
