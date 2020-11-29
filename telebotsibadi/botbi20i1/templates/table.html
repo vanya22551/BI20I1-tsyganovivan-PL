@@ -1,5 +1,33 @@
 {% extends 'base.html'%}
 {% block content%}
+ <style type="text/css">
+    body {
+    background: url(http://www.wallpapers4u.org/wp-content/uploads/background_light_bright_point_47456_1920x1080.jpg) repeat-y;
+   }
+
+   TABLE {
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    width: 100%; /* Ширина таблицы */
+   }
+   TH {
+    background: rgba(255, 255, 255, 0.8); /* Цвет фона ячейки */
+    text-align: center; /* Выравнивание по левому краю */
+   }
+   TD {
+    background: rgba(255, 255, 255, 0.1) /* Цвет фона */
+    /* Выравнивание по центру */
+   }
+   TH, TD {
+    border: 1px solid black; /* Параметры рамки */
+    padding: 5px; /* Поля вокруг текста */
+   }
+   input{
+    background: none;
+   }
+    a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
+  </style>
 <table>
 <tr><th>Студент</th>
     {% for stat in stats%}
@@ -26,10 +54,10 @@
         {% endif %}
     {% endfor %}
 
-        <td>{{student.rating_1KT}}</td>
-        <td>{{student.rating_2KT}}</td>
-        <td>{{student.rating_3KT}}</td>
-        <td><data class="Rating " rt="{{student.id}}">{{student.rating}}</data></td>
+        <td><data class="Rating " rank="{{student.id}}">{{student.rating_1KT}}</data></td>
+        <td><data class="Rating " rank="{{student.id}}">{{student.rating_2KT}}</data></td>
+        <td><data class="Rating " rank="{{student.id}}">{{student.rating_3KT}}</data></td>
+        <td><data class="Rating " rank="{{student.id}}">{{student.rating}}</data></td>
 
     </tr>
 {% endfor %}

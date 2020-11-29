@@ -18,8 +18,6 @@ def facePage(request):
     return render(request, template_name='facePage.html', context=context)
 
 
-
-
 def index(request):
     data = {}
     students = Student.objects.all()
@@ -59,7 +57,7 @@ def table_view(request):
 
 
 def update_changes(request):
-    if(request.GET):
+    if (request.GET):
         stats = Stats.objects.get(pk=request.GET['stats_id'])
         user = Student.objects.get(pk=stats.student.id)
         labs_kt1 = user.labs.filter(kt=1)
@@ -105,18 +103,13 @@ def update_changes(request):
         user.save()
         stats.save()
 
-
-
     return JsonResponse(
         {
-            'status':stats.status, 
-            'user_id':user.id, 
-            'lab_id':request.GET['stats_id'], 
-            'kt_1':user.rating_1KT,
-            'kt_2':user.rating_2KT,
-            'kt_3':user.rating_3KT,
-            'rating':user.rating
+            'status': stats.status,
+            'user_id': user.id,
+            'lab_id': request.GET['stats_id'],
+            'kt_1': user.rating_1KT,
+            'kt_2': user.rating_2KT,
+            'kt_3': user.rating_3KT,
+            'rating': user.rating
         })
-
-
-
