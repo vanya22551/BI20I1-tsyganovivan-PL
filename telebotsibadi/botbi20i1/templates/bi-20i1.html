@@ -31,7 +31,7 @@
 <table>
 <tr><th>Студент</th>
     {% for stat in stats%}
-    {% with student=students_bi20i1|first %}
+    {% with student=students|first %}
         {% if stat.student.id == student.id %}
         <th>{{stat.lab.name}}</th>
         {% endif %}
@@ -42,9 +42,9 @@
     <th>Рейтинг за КТ3</th>
     <th>Общий рейтинг</th>
 </tr>
-{% for student in students_bi20i1 %}
+{% for student in students %}
     <tr>
-    <td>{{student.name}}</td>
+        <td><a href="{{student.git_hub}}" style="font-family:times;color:black;font-size:15px">{{student.name}}</a></td>
     {% for stat in stats%}
         {% if stat.student.id == student.id %}
 
@@ -54,10 +54,10 @@
         {% endif %}
     {% endfor %}
 
-        <td><data class="Rating " rank="{{student.id}}">{{student.rating_1KT}}</data></td>
-        <td><data class="Rating " rank="{{student.id}}">{{student.rating_2KT}}</data></td>
-        <td><data class="Rating " rank="{{student.id}}">{{student.rating_3KT}}</data></td>
-        <td><data class="Rating " rank="{{student.id}}">{{student.rating}}</data></td>
+        <td><data class="rating kt1" rank="{{student.id}}">{{student.rating_1KT}}</data></td>
+        <td><data class="rating kt2" rank="{{student.id}}">{{student.rating_2KT}}</data></td>
+        <td><data class="rating kt3" rank="{{student.id}}">{{student.rating_3KT}}</data></td>
+        <td><data class="rating total" rank="{{student.id}}">{{student.rating}}</data></td>
 
     </tr>
 {% endfor %}
@@ -75,11 +75,19 @@ for (const item of items) {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 this_click.innerHTML= this.responseText;
-                    document.querySelector('.rating rt=[16]').innerHTML = 100;
+                    console.log(this.responseText);
+                  document.querySelector('.rating.kt1[rank="'+JSON.parse(this.responseText)['user_id'] +'"]'
+                  ).innerHTML = JSON.parse(this.responseText)['kt_1'];
+                  document.querySelector('.rating.kt2[rank="'+JSON.parse(this.responseText)['user_id'] +'"]'
+                  ).innerHTML = JSON.parse(this.responseText)['kt_2'];
+                  document.querySelector('.rating.kt3[rank="'+JSON.parse(this.responseText)['user_id'] +'"]'
+                  ).innerHTML = JSON.parse(this.responseText)['kt_3'];
+                  document.querySelector('.rating.total[rank="'+JSON.parse(this.responseText)['user_id'] +'"]'
+                  ).innerHTML = JSON.parse(this.responseText)['rating'];
                 console.log(JSON.parse(this.responseText).rating);
             }
         };
-        xhttp.open("GET", "api/v1/update_stats_status?stats_id="+id+"&status=1", true);
+        xhttp.open("GET", "/api/v1/update_stats_status?stats_id="+id+"&status=1", true);
         xhttp.send();
             });
 }
