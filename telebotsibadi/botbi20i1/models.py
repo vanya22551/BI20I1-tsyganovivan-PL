@@ -17,19 +17,26 @@ class Laboratory(models.Model):
         return self.name
 
 
-class Student(models.Model):
+class Group(models.Model):
+    name = models.CharField(max_length=20, default="")
+    course = models.CharField(max_length=20, default="")
 
-    group = models.CharField(max_length=20, default="")
+    def __str__(self):
+        return self.name
+
+class Student(models.Model):
+    group = models.CharField(max_length=20, default="") #как-то избавитьсяя
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default=4)
+    personal_number = models.CharField(max_length=20, default="")
     name = models.CharField(max_length=60, default="")
     git_hub = models.CharField(max_length=100, default="")
-    rating_1KT = models.PositiveIntegerField(default=0, validators=[
-        MaxValueValidator(100)])
-    rating_2KT = models.PositiveIntegerField(default=0, validators=[
-        MaxValueValidator(100)])
-    rating_3KT = models.PositiveIntegerField(default=0, validators=[
-        MaxValueValidator(100)])
-    rating = models.PositiveIntegerField(default=0, validators=[
-        MaxValueValidator(100)])
+    rating_1KT = models.FloatField(default=0, validators=[
+        MaxValueValidator(100.00)])
+    rating_2KT = models.FloatField(default=0, validators=[
+        MaxValueValidator(100.00)])
+    rating_3KT = models.FloatField(default=0, validators=[
+        MaxValueValidator(100.00)])
+    rating = models.FloatField(default=0, validators=[MaxValueValidator(100.00)])
 
     labs = models.ManyToManyField(Laboratory, through='Stats')
 
@@ -53,7 +60,6 @@ class Rating(models.Model):
 
 
 class Hint(models.Model):
-
     text = models.TextField(default="")
     lab = models.ForeignKey(Laboratory, on_delete=models.CASCADE, null=True)
 
@@ -62,7 +68,6 @@ class Hint(models.Model):
 
 
 class Stats(models.Model):
-
     lab = models.ForeignKey(Laboratory, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Бот группы БИ-20И1</title>
+    <title>ИСУ</title>
 </head>
  <style type="text/css">
     body {
@@ -36,23 +36,20 @@
 
 
 
-    <h1 align="center"> Сайт для Бота группы БИ-20И1</h1>
-    <p style="position:fixed; top:16px;  left:1200px">
-        <input type="button" onclick="location.href='{% url 'table' %}';" value=" Таблица ">
-    </p>
+    <h1 align="center"> Сайт для Бота факультета ИСУ</h1>
     <p style="position:fixed; top:16px;  left:1300px">
         <input type="button" onclick="location.href='{% url 'admin:index' %}';" value=" Админка ">
     </p>
-    <table>
+    <table align="center">
     <tr>
-        <th><b>Cтуденты группы:</b></th>
-        <th><b>Рейтинг</b></th>
+        <th><b>Номер группы</b></th>
+        <th><b>Курс</b></th>
     </tr>
 
-    {% for student in students %}
+    {% for group in groups %}
     <tr>
-        <td align="left"><a href="{{student.git_hub}}" style="font-family:times;color:black;font-size:15px">{{student.name}}</a></td>
-        <td align="center" style="font-family:times;color:black;font-size:15px">{{student.rating}}</td>
+        <td align="left"><a href="{% url 'bi20i1' id=group.id %}" style="font-family:times;color:black;font-size:15px">{{group.name}}</a></td>
+        <td align="center" style="font-family:times;color:black;font-size:15px">{{group.course}}</td>
 
     </tr>
     {% endfor %}
