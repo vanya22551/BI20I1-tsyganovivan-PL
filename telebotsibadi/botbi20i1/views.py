@@ -4,6 +4,7 @@ import json
 # Create your views here.
 from .models import Laboratory, Student, Hint, Stats, Group
 
+
 def group(request, id):
     students = Student.objects.filter(group_id__id=id)
 
@@ -36,14 +37,17 @@ def facePage(request):
 
 def index(request):
     data = {}
-    students = Student.objects.all()
+    datas = {}
+    m = 0
+    students = Student.objects.filter(group_id__id=4)
     for student in students:
 
-        data.update({student.group: {'name': student.name, 'rating': student.rating, 'labs': {}}})
+        data.update({str(student.personal_number): {'name': student.name, 'rating': student.rating, 'labs': {}}})
         i = 1
+        m +=1
         labs = Stats.objects.filter(student=student).filter(status=False).prefetch_related('lab')
         for lab in labs:
-            data[student.group]['labs'].update({
+            data[str(student.personal_number)]['labs'].update({
                 i: {
                     'name': lab.lab.name,
                     'description': lab.lab.description,
@@ -55,14 +59,15 @@ def index(request):
             hints = Hint.objects.filter(lab=lab.lab.id)
             j = 1
             for hint in hints:
-                data[student.group]['labs'][i]['hints'].update({j: hint.text})
+                data[str(student.personal_number)]['labs'][i]['hints'].update({j: hint.text})
                 j += 1
             i += 1
+
     return JsonResponse(data)
 
 
 def table_view(request):
-    students_bi20i1 = Student.objects.all().filter(group='БИ-20И1')
+    students_bi20i1 = Student.objects.filter(group_id__id=4)
     stats = Stats.objects.all().order_by('lab')
     context = {
         'students_bi20i1': students_bi20i1,
@@ -117,14 +122,14 @@ def update_changes(request):
 
 
         if KT == 1:
-            user.rating_1KT = lab_point_kt1*len(labs_done_kt1)
-            user.rating = update_rating_point_1kt
+            user.rating_1KT += lab_point_kt1*len(labs_done_kt1)
+            user.rating += update_rating_point_1kt
         elif KT == 2:
-            user.rating_2KT = lab_point_kt2*len(labs_done_kt2)
-            user.rating = update_rating_point_2kt
+            user.rating_2KT += lab_point_kt2*len(labs_done_kt2)
+            user.rating += update_rating_point_2kt
         else:
-            user.rating_3KT = lab_point_kt3*len(labs_done_kt3)
-            user.rating = update_rating_point_3kt
+            user.rating_3KT += lab_point_kt3*len(labs_done_kt3)
+            user.rating += update_rating_point_3kt
 
 
         user.save()

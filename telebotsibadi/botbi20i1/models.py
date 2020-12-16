@@ -25,8 +25,9 @@ class Group(models.Model):
         return self.name
 
 class Student(models.Model):
-    group = models.CharField(max_length=20, default="") #как-то избавитьсяя
+    #group = models.CharField(max_length=20, default="") #как-то избавитьсяя
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default=4)
+
     personal_number = models.CharField(max_length=20, default="")
     name = models.CharField(max_length=60, default="")
     git_hub = models.CharField(max_length=100, default="")
@@ -41,7 +42,8 @@ class Student(models.Model):
     labs = models.ManyToManyField(Laboratory, through='Stats')
 
     def __str__(self):
-        return self.group + " " + self.name
+
+        return self.name
 
 
 @receiver(post_save, sender=Laboratory)
