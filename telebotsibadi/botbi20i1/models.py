@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -25,19 +25,16 @@ class Group(models.Model):
         return self.name
 
 class Student(models.Model):
-    #group = models.CharField(max_length=20, default="") #как-то избавитьсяя
+
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default=4)
 
     personal_number = models.CharField(max_length=20, default="")
     name = models.CharField(max_length=60, default="")
     git_hub = models.CharField(max_length=100, default="")
-    rating_1KT = models.FloatField(default=0, validators=[
-        MaxValueValidator(100.00)])
-    rating_2KT = models.FloatField(default=0, validators=[
-        MaxValueValidator(100.00)])
-    rating_3KT = models.FloatField(default=0, validators=[
-        MaxValueValidator(100.00)])
-    rating = models.FloatField(default=0, validators=[MaxValueValidator(100.00)])
+    rating_1KT = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100.00)])
+    rating_2KT = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100.00)])
+    rating_3KT = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    rating = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     labs = models.ManyToManyField(Laboratory, through='Stats')
 

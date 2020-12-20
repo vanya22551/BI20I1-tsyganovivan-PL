@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-import json
-# Create your views here.
 from .models import Laboratory, Student, Hint, Stats, Group
 
 
@@ -37,14 +35,11 @@ def facePage(request):
 
 def index(request):
     data = {}
-    datas = {}
-    m = 0
     students = Student.objects.filter(group_id__id=4)
     for student in students:
 
         data.update({str(student.personal_number): {'name': student.name, 'rating': student.rating, 'labs': {}}})
         i = 1
-        m +=1
         labs = Stats.objects.filter(student=student).filter(status=False).prefetch_related('lab')
         for lab in labs:
             data[str(student.personal_number)]['labs'].update({
@@ -81,11 +76,6 @@ def update_changes(request):
     if (request.GET):
         stats = Stats.objects.get(pk=request.GET['stats_id'])
         user = Student.objects.get(pk=stats.student.id)
-        if request.GET['status'] == '1':
-            stats.status = True
-
-        else:
-            stats.status = False
         labs_kt1 = user.labs.filter(kt=1)
         labs_kt2 = user.labs.filter(kt=2)
         labs_kt3 = user.labs.filter(kt=3)
@@ -120,18 +110,49 @@ def update_changes(request):
             lab_point_kt3 = 0
             update_rating_point_3kt = 0
 
+        if request.GET['status'] == '1':
 
-        if KT == 1:
-            user.rating_1KT += lab_point_kt1*len(labs_done_kt1)
-            user.rating += update_rating_point_1kt
-        elif KT == 2:
-            user.rating_2KT += lab_point_kt2*len(labs_done_kt2)
-            user.rating += update_rating_point_2kt
-        else:
-            user.rating_3KT += lab_point_kt3*len(labs_done_kt3)
-            user.rating += update_rating_point_3kt
+            if user.rating_1KT <= 100 and user.rating_2KT <= 100 and user.rating_3KT <= 100:
+                if KT == 1:
+                    if stats.status == False:
+                        stats.status = True
+                        if user.rating_1KT < 100:
+                            user.rating_1KT += lab_point_kt1
+                        if user.rating <= 100:
+                            user.rating += update_rating_point_1kt
+                    else:
+                        stats.status = False
+                        if user.rating_1KT <= 100:
+                            user.rating_1KT -= lab_point_kt1
+                        if user.rating <= 101:
+                            user.rating -= update_rating_point_1kt
 
-
+                elif KT == 2:
+                    if stats.status == False:
+                        stats.status = True
+                        if user.rating_2KT < 100:
+                            user.rating_2KT += lab_point_kt2
+                        if user.rating <= 100:
+                            user.rating += update_rating_point_2kt
+                    else:
+                        stats.status = False
+                        if user.rating_2KT <= 100:
+                            user.rating_2KT -= lab_point_kt2
+                        if user.rating <= 101:
+                            user.rating -= update_rating_point_2kt
+                else:
+                    if stats.status == False:
+                        stats.status = True
+                        if user.rating_3KT < 100:
+                            user.rating_3KT += lab_point_kt3
+                        if user.rating < 100:
+                            user.rating += update_rating_point_3kt
+                    elif stats.status == True:
+                        stats.status = False
+                        if user.rating_3KT <= 100:
+                            user.rating_3KT -= lab_point_kt3
+                        if user.rating <= 101:
+                            user.rating -= update_rating_point_3kt
         user.save()
         stats.save()
 
