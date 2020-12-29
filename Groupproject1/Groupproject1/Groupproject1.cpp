@@ -126,6 +126,162 @@ void sum() {
 	}
 }
 
+void subtraction() {
+	int flag = 0;
+	auto begin = result.cbegin();
+
+	if (a.size() > b.size()) {
+		for (int i = a.size() - b.size(); i > 0; i--) {
+			b.insert(b.begin(), 0);
+		}
+	}
+	else if (b.size() > a.size()) {
+		for (int i = b.size() - a.size(); i > 0; i--) {
+			a.insert(a.begin(), 0);
+		}
+	}
+
+	if (checkLength()) {
+		for (int i = a.size() - 1; i >= 0; i--) {
+			if (a[i] < b[i]) {
+				result.insert(result.begin(), (a[i] + 10) - b[i]);
+				int j = i;
+				while (j > 0) {
+					if (a[j - 1] > 0) {
+						a[j - 1] = a[j - 1] - 1;
+						flag++;
+						if (flag == 2)
+							a[j - 1] += 1;
+						break;
+					}
+					else {
+						a[j - 1] = -1;
+						j--;
+					}
+				}
+			}
+			else {
+				result.insert(result.begin(), a[i] - b[i]);
+			}
+			if (b[i] < 0 && i == 0) {
+				result[i] = 0;
+			}
+		}
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] < 0) {
+				result[i] = 0;
+			}
+		}
+	}
+	else {
+		for (int i = a.size() - 1; i >= 0; i--) {
+			if (b[i] < a[i]) {
+				result.insert(result.begin(), (b[i] + 10) - a[i]);
+				int j = i;
+				while (j > 0) {
+					if (b[j - 1] != 0) {
+						b[j - 1] = b[j - 1] - 1;
+						flag++;
+						if (flag == 2)
+							b[j - 1] += 1;
+						break;
+					}
+					else {
+						b[j - 1] = -1;
+						j--;
+					}
+				}
+			}
+			else {
+				result.insert(result.begin(), b[i] - a[i]);
+			}
+			if (b[i] < 0 && i == 0) {
+				result[i] = 0;
+			}
+		}
+		cout << "-";
+	}
+}
+
+void multiplication() {
+	int flag = 0;
+	int counter = 0;
+
+	vector <int> cur;
+	vector <int> carry1;
+	vector <int> carry2 = { 0 };
+
+	while (b.empty() == false) {
+
+		int def = 0;
+		for (int i = a.size() - 1; i >= 0; i--) {
+			cur.insert(cur.begin(), (a[i] * b.back() + def) % 10);
+
+			if (i == 0 && a[i] * b.back() + def > 9)
+				cur.insert(cur.begin(), (a[i] * b.back() + def) / 10);
+
+			if ((a[i] * b.back() + def) > 9)
+				def = (a[i] * b.back() + def) / 10;
+			else
+				def = 0;
+		}
+		if (counter > 0)
+			for (int i = counter; i >= 1; i--) {
+				cur.push_back(0);
+			}
+		int j = cur.size() - carry2.size();
+		int k = cur.size() - carry1.size();
+
+		if (carry1.empty()) {
+			for (int i = abs(j); i > 0; i--) {
+				carry2.insert(carry2.begin(), 0);
+			}
+		}
+		else
+			for (int i = abs(k); i > 0; i--) {
+				carry1.insert(carry1.begin(), 0);
+			}
+
+		if (carry1.empty()) {
+			for (int i = carry2.size() - 1; i >= 0; i--) {
+				carry1.insert(carry1.begin(), (carry2[i] + cur[i] + flag) % 10);
+
+				if (i == 0 && carry2[i] + cur[i] + flag > 9)
+					carry1.insert(carry1.begin(), 1);
+
+				if ((carry2[i] + cur[i] + flag) > 9)
+					flag = 1;
+				else
+					flag = 0;
+			}
+			carry2.clear();
+		}
+		else if (carry2.empty()) {
+			for (int i = carry1.size() - 1; i >= 0; i--) {
+				carry2.insert(carry2.begin(), (carry1[i] + cur[i] + flag) % 10);
+
+				if (i == 0 && carry1[i] + cur[i] + flag > 9)
+					carry2.insert(carry2.begin(), 1);
+
+				if ((carry1[i] + cur[i] + flag) > 9)
+					flag = 1;
+				else
+					flag = 0;
+			}
+			carry1.clear();
+		}
+
+		counter++;
+		cur.clear();
+		b.pop_back();
+	}
+
+	if (carry1.empty()) result.swap(carry2); else result.swap(carry1);
+	carry1.clear();
+	carry2.clear();
+	cur.clear();
+}
+
 
 int checkLength() {
 	if (a.size() > b.size())
@@ -184,8 +340,16 @@ int main()
 			sum();
 			showResult();
 			break;
-	
-		
+		case 2:
+			getNumber(a, b);
+			subtraction();
+			showResult();
+			break;
+		case 3:
+			getNumber(a, b);
+			multiplication();
+			showResult();
+			break;
 		case 4: break;
 
 		}
@@ -193,3 +357,4 @@ int main()
 
 	system("pause");
 	return 0;
+}
